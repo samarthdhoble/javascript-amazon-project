@@ -8,6 +8,7 @@ const products = [
         } ,
         priceCent : 1090 
     } ,
+
     {
         image : 'images/products/intermediate-composite-basketball.jpg',
         name : 'Intermediate Size Basketball',
@@ -15,8 +16,9 @@ const products = [
             stars : 4,
             count : 127,
         } ,
-        price : 2095
+        priceCent : 2095
     } ,
+
     {
         image : 'images/products/adults-plain-cotton-tshirt-2-pack-teal.jpg',
         name : 'Adults Plain Cotton T-Shirt - 2 Pack',
@@ -24,7 +26,7 @@ const products = [
             stars : 4.5,
             count : 56,
         } ,
-        price : 799
+        priceCent : 799
     }
 ];
 
@@ -47,7 +49,7 @@ products.forEach((product) => {
 
           <div class="product-rating-container">
             <img class="product-rating-stars"
-              src="images/ratings/rating-${product.rating[stars] * 10}.png">
+              src="images/ratings/rating-${product.rating.stars * 10}.png">
 
             <div class="product-rating-count link-primary">
               ${product.rating.count}
@@ -55,7 +57,7 @@ products.forEach((product) => {
           </div>
 
           <div class="product-price">
-            $${product.priceCent / 100}
+            $${(product.priceCent / 100).toFixed(2)}
           </div>
 
           <div class="product-quantity-container">
@@ -88,4 +90,4 @@ products.forEach((product) => {
     
 });
 
-console.log(productHTML);
+document.querySelector('.js-product-grid').innerHTML = productHTML;
