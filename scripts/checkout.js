@@ -18,8 +18,9 @@ cart.forEach((cartItem) => {
 
     });
     
-    
-    cartSummaryHTML += `<div class="cart-item-container">
+
+// WE HAVE ADDED CLASS 'js-cart-item-container-${matchingProduct.id}' FOR GETTING CORRECT PRODUCT CONTAINER TO REMOVE IT FORM THE PAGE.    
+    cartSummaryHTML += `<div class="cart-item-container js-cart-item-container-${matchingProduct.id}">  
         <div class="delivery-date">
             Delivery date: Tuesday, June 21
         </div>
@@ -103,10 +104,16 @@ document.querySelector('.js-order-summary').innerHTML = cartSummaryHTML;
 
 
 document.querySelectorAll('.js-delete-link').forEach((link) => {
+
     link.addEventListener('click', () => {
-        let productId = link.dataset.productId;
-        removeFromCart(productId);
-        console.log(cart);
+
+        let productId = link.dataset.productId; // GET THE PRODUCT ID OF THE PRODUCT'S DELETE LINK USING 'dataset'.
+
+        removeFromCart(productId); // CALLING REMOVE FORM CART FUNTION TO REMOVE THE ELEMENT FORM CART ARRAY.
+
+        const container = document.querySelector(`.js-cart-item-container-${productId}`); // GET THE CLASS OF THE PRODUCT TO WITH UNIQUE ID OF THE PRODUCT TO REMOVE.
+
+        container.remove(); // REMOVED THE PRODUCT FORM THE PAGE. 
 
     })
 })

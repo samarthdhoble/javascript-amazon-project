@@ -31,17 +31,19 @@ export function addToCart(productId){
   }
 
 
-  export function removeFromCart(productId){
-    let newCart = [];
+  export function removeFromCart(productId){ // PASS THE PARAMETRE TO THE FUNTION.
+
+    let newCart = []; // CREATED THE NEW ARRAY FOR NEW CART THAT ADDES THE CART ITEM EXCEPT THE ONE PRODUCT THAT WE REMOVED.
 
 
-    cart.forEach((cartItem) => {
-      if (cartItem.productId !== productId){
-        newCart.push(cartItem);
+    cart.forEach((cartItem) => { // LOOPING THROUGH CART
+      if (cartItem.productId !== productId){ // COMPARING PRODUCT ID'S IF PRODUCT ID'S ARE NOT EQUAL THAN IT ADD THE CARTITEM INTO NEW CART ARRAY.
+
+        newCart.push(cartItem); 
       }
     })
 
-    cart = newCart;
+    cart = newCart; // ASSIGHING NEW CART TO CART. 
 
   }
   
