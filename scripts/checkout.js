@@ -7,44 +7,52 @@ import {deliveryOptions} from '../data/deliveryOptios.js'
 
 
 
-const today = dayjs();
-const deliveryDate = today.add(7,'days');
-console.log(deliveryDate.format('dddd, MMMM D'));
 
-let cartSummaryHTML = '';
+let cartSummaryHTML = ''; 
+
 
 cart.forEach((cartItem) => {
 
-    const productId = cartItem.productId;
+    const productId = cartItem.productId; // saved product id in 'productId' variabble.
 
-    let matchingProduct;
+    let matchingProduct; // created new variable to store the same item.
 
-    products.forEach((product) => {
-        if(product.id === productId){
+    products.forEach((product) => { // looping in products array.
+
+        if(product.id === productId){ //if product id in product array is same as product which is already added in cart than the product is added in 'matchingProduct' variable.
+
             matchingProduct = product;
         }
 
     });
     
 
-    const deliveryOptionId = cartItem.deliveryOptionId;
+    const deliveryOptionId = cartItem.deliveryOptionId; // get delivery option id in variable 'deliveryOptionId'.
 
-    let deliveryOption;
+    let deliveryOption; // this for getting which option of delivery selected stored in the cart.
+
     deliveryOptions.forEach((option) => {
         if (option.id === deliveryOptionId){
-            deliveryOption = option;
+            deliveryOption = option; 
         }
     });
 
+
+
+    //days :
     const today = dayjs();
-    const deliveryDate = today.add(deliveryOption.deliveryDays,'days');
-    const datestring = deliveryDate.format('dddd, MMMM D');
+    const deliveryDate = today.add(deliveryOption.deliveryDays,'days'); // getting deliveryOpton's deliveryDays.
+    const datestring = deliveryDate.format('dddd, MMMM D'); // formating the date.
+    
+
+    //price :
     const priceString = deliveryOption.priceCents === 0 ? 'Free' : `$${formatCurrency(deliveryOption.priceCents)}`;
 
 
 
-// WE HAVE ADDED CLASS 'js-cart-item-container-${matchingProduct.id}' FOR GETTING CORRECT PRODUCT CONTAINER TO REMOVE IT FORM THE PAGE.    
-    cartSummaryHTML += `<div class="cart-item-container js-cart-item-container-${matchingProduct.id}">  
+    // WE HAVE ADDED CLASS 'js-cart-item-container-${matchingProduct.id}' FOR GETTING CORRECT PRODUCT CONTAINER TO REMOVE IT FORM THE PAGE.    
+    cartSummaryHTML += 
+    `<div class="cart-item-container js-cart-item-container-${matchingProduct.id}">  
         <div class="delivery-date">
             ${datestring}
         </div>
@@ -87,17 +95,26 @@ cart.forEach((cartItem) => {
 
 
 
-function deliveryOptionsHTML(matchingProduct,cartItem){
+
+
+// this funtion generate html of delivery Options.
+function deliveryOptionsHTML(matchingProduct,cartItem){ 
+
     let html = ``;
 
     deliveryOptions.forEach((deliveryOption) => {
-        const today = dayjs();
+
+        //days
+        const today = dayjs(); // 
         const deliveryDate = today.add(deliveryOption.deliveryDays,'days');
         const datestring = deliveryDate.format('dddd, MMMM D');
+
+        //prices
         const priceString = deliveryOption.priceCents === 0 ? 'Free' : `$${formatCurrency(deliveryOption.priceCents)}`;
         const isChecked = deliveryOption.id === cartItem.deliveryOptionId;
          
 
+        // generating html of delievry options
         html +=` <div class="delivery-option">
                 <input type="radio" 
                 ${isChecked ? 'checked': ''}
@@ -113,15 +130,18 @@ function deliveryOptionsHTML(matchingProduct,cartItem){
                 </div>
             </div>
         `
-
     });
-    return html;
+    return html; // returning the html for generating.
 
 }
 
+
+// this line is for generating the order Summary/cart html.
 document.querySelector('.js-order-summary').innerHTML = cartSummaryHTML;
 
 
+
+// this is for delete links to delete the product from the cart. 
 document.querySelectorAll('.js-delete-link').forEach((link) => {
 
     link.addEventListener('click', () => {
@@ -135,4 +155,4 @@ document.querySelectorAll('.js-delete-link').forEach((link) => {
         container.remove(); // REMOVED THE PRODUCT FORM THE PAGE. 
 
     })
-})
+});
