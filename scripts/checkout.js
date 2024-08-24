@@ -1,4 +1,4 @@
-import { cart , removeFromCart } from "../data/cart.js";
+import { cart , removeFromCart, updateDeliveryOption} from "../data/cart.js";
 import { products } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js'
@@ -8,18 +8,18 @@ import {deliveryOptions} from '../data/deliveryOptios.js'
 
 
 
-let cartSummaryHTML = ''; 
+let cartSummaryHTML = ''; // this stores the html of cart itmes 
 
 
 cart.forEach((cartItem) => {
 
     const productId = cartItem.productId; // saved product id in 'productId' variabble.
 
-    let matchingProduct; // created new variable to store the same item.
+    let matchingProduct; // created vaiable to normalize the data 
 
     products.forEach((product) => { // looping in products array.
 
-        if(product.id === productId){ //if product id in product array is same as product which is already added in cart than the product is added in 'matchingProduct' variable.
+        if(product.id === productId){ //if product id is same as cartItem's product id than the product is saved to matchingProduct variable.
 
             matchingProduct = product;
         }
@@ -66,7 +66,7 @@ cart.forEach((cartItem) => {
                 Black and Gray Athletic Cotton Socks - 6 Pairs
             </div>
             <div class="product-price">
-                $${formatCurrency(matchingProduct.priceCents)} 
+                &#x20b9 ${formatCurrency(matchingProduct.priceCents)} 
             </div>
             <div class="product-quantity">
                 <span>
@@ -100,7 +100,7 @@ cart.forEach((cartItem) => {
 // this funtion generate html of delivery Options.
 function deliveryOptionsHTML(matchingProduct,cartItem){ 
 
-    let html = ``;
+    let html = ``; // this element store the html of the delivery option
 
     deliveryOptions.forEach((deliveryOption) => {
 
@@ -115,7 +115,7 @@ function deliveryOptionsHTML(matchingProduct,cartItem){
          
 
         // generating html of delievry options
-        html +=` <div class="delivery-option">
+        html +=` <div class="delivery-option js-delivery-option" data-product-id="${matchingProduct.id}" data-delivery-option-id="${deliveryOption.id}">
                 <input type="radio" 
                 ${isChecked ? 'checked': ''}
                 class="delivery-option-input"
@@ -154,5 +154,11 @@ document.querySelectorAll('.js-delete-link').forEach((link) => {
 
         container.remove(); // REMOVED THE PRODUCT FORM THE PAGE. 
 
+    })
+});
+
+document.querySelectorAll('.js-delivery-option').forEach((element) => {
+    element.addEventListener('click',() => {
+        updateDeliveryOption(productId,deliveryOptionId);
     })
 });

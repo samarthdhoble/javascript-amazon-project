@@ -48,6 +48,8 @@ export function addToCart(productId){
   }
 
 
+
+
   export function removeFromCart(productId){ // PASS THE PARAMETRE TO THE FUNTION.
 
     let newCart = []; // CREATED THE NEW ARRAY FOR NEW CART THAT ADDES THE CART ITEM EXCEPT THE ONE PRODUCT THAT WE REMOVED.
@@ -61,6 +63,24 @@ export function addToCart(productId){
     })
 
     cart = newCart; // ASSIGHING NEW CART TO CART. 
+    saveToStorage();
+
+  }
+
+
+   export function updateDeliveryOption(productId,deliveryOptionId){
+
+    let matchingItem; // created a variable to store the matching item.
+  
+    cart.forEach((cartItem) => { // looping through the cart 
+      if (productId === cartItem.productId){ // checking the product name is same as previously or already added product.
+        
+        matchingItem = cartItem; // if the name is same than the product is stored in the 'matchingItem' variable.
+      }
+    });
+
+    matchingItem.deliveryOptionId = deliveryOptionId;
+
     saveToStorage();
 
   }
