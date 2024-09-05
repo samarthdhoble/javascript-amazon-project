@@ -84,4 +84,3 @@ export function addToCart(productId){
     saveToStorage();
 
   }
-  
