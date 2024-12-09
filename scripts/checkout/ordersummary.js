@@ -1,5 +1,5 @@
 import { cart , removeFromCart, updateDeliveryOption} from "../../data/cart.js";
-import { products } from "../../data/products.js";
+import { products , getProduct } from "../../data/products.js";
 import { formatCurrency } from "../utils/money.js";
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js'
 import {deliveryOptions} from '../../data/deliveryOptios.js'
@@ -17,16 +17,7 @@ export function renderOrderSummary(){
 
         const productId = cartItem.productId; // saved product id in 'productId' variabble.
 
-        let matchingProduct; // created vaiable to normalize the data 
-
-        products.forEach((product) => { // looping in products array.
-
-            if(product.id === productId){ //if product id is same as cartItem's product id than the product is saved to matchingProduct variable.
-
-                matchingProduct = product;
-            }
-
-        });
+        const matchingProduct = getProduct(productId) ; // created vaiable to normalize the data 
         
 
         const deliveryOptionId = cartItem.deliveryOptionId; // get delivery option id in variable 'deliveryOptionId'.

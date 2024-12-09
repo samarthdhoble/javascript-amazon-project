@@ -1,3 +1,20 @@
+export function getProduct(productId){
+  
+  let matchingProduct; // created vaiable to normalize the data 
+
+  products.forEach((product) => { // looping in products array.
+
+      if(product.id === productId){ //if product id is same as cartItem's product id than the product is saved to matchingProduct variable.
+
+          matchingProduct = product;
+      }
+  });
+  return matchingProduct;
+}
+
+
+
+
 export const products = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
