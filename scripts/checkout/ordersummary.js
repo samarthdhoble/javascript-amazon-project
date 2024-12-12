@@ -2,7 +2,7 @@ import { cart , removeFromCart, updateDeliveryOption} from "../../data/cart.js";
 import { products , getProduct } from "../../data/products.js";
 import { formatCurrency } from "../utils/money.js";
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js'
-import {deliveryOptions} from '../../data/deliveryOptios.js'
+import {deliveryOptions , getDeliveryOption} from '../../data/deliveryOptios.js'
 
 
 
@@ -22,14 +22,7 @@ export function renderOrderSummary(){
 
         const deliveryOptionId = cartItem.deliveryOptionId; // get delivery option id in variable 'deliveryOptionId'.
 
-        let deliveryOption; // this for getting which option of delivery selected stored in the cart.
-
-        deliveryOptions.forEach((option) => {
-            if (option.id === deliveryOptionId){
-                deliveryOption = option; 
-            }
-        });
-
+        const deliveryOption = getDeliveryOption(deliveryOptionId)
 
 
         //days :
@@ -158,6 +151,7 @@ export function renderOrderSummary(){
             element.addEventListener('click',() => {
             const {productId,deliveryOptionId} = element.dataset;
             updateDeliveryOption(productId,deliveryOptionId);
+
 
             renderOrderSummary();
         })

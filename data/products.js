@@ -5,10 +5,10 @@ export function getProduct(productId){
   products.forEach((product) => { // looping in products array.
 
       if(product.id === productId){ //if product id is same as cartItem's product id than the product is saved to matchingProduct variable.
-
           matchingProduct = product;
       }
   });
+  
   return matchingProduct;
 }
 

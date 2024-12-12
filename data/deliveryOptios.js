@@ -13,3 +13,16 @@ export const deliveryOptions = [
         priceCents : 999
     }
 ];
+
+
+export function getDeliveryOption(deliveryOptionId){
+    let deliveryOption; // this for getting which option of delivery selected stored in the cart.
+
+        deliveryOptions.forEach((option) => {
+            if (option.id === deliveryOptionId){
+                deliveryOption = option; 
+            }
+        });
+    
+    return deliveryOption || deliveryOptions[0];
+}
