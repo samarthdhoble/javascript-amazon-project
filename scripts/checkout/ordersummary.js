@@ -49,7 +49,6 @@ export function renderOrderSummary(){
 
                     <div class="cart-item-details">
                     <div class="${matchingProduct.name}">
-                        Black and Gray Athletic Cotton Socks - 6 Pairs
                     </div>
                     <div class="product-price">
                         ${matchingProduct.getPrice()} 
@@ -96,7 +95,7 @@ export function renderOrderSummary(){
             const datestring = deliveryDate.format('dddd, MMMM D');
 
             //prices
-            const priceString = deliveryOption.priceCents === 0 ? 'Free' : `$${formatCurrency(deliveryOption.priceCents)}`;
+            const priceString = deliveryOption.priceCents === 0 ? 'Free' : `Rs ${formatCurrency(deliveryOption.priceCents)}`;
             const isChecked = deliveryOption.id === cartItem.deliveryOptionId;
             
 
